@@ -36,6 +36,7 @@ iterateThird iList firstElem secondElem index =
       then firstElem * secondElem * iList !! index
       else iterateThird iList firstElem secondElem (index + 1)
 
+-- my solution:
 main :: IO ()
 main = do
   handle <- openFile "day1_input.txt" ReadMode
@@ -45,3 +46,11 @@ main = do
   print(iterateFirst list 0)
 
   hClose handle
+
+-- solution on Reddit
+-- main :: IO ()
+-- main = do
+--   infile <- readFile "day1_input.txt"
+--   let xs = [read x :: Int | x <- lines infile]
+--   print $ [a * b |  a <- xs, b <- xs , a + b == 2020]
+--   print $ [a * b * c |  a <- xs, b <- xs, c <- xs , a + b + c == 2020]
