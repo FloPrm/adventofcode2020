@@ -14,19 +14,27 @@ nextFirstValue :: [Integer] -> Int -> Integer
 nextFirstValue iList index
   | result <= 0 = iterateFirst iList (index + 1)
   | otherwise  = result
-  where result = iterateSecond iList (iList !! index) 0
+  where result = iterateSecond iList (iList !! index) index
 
 iterateSecond :: [Integer] -> Integer -> Int -> Integer
 iterateSecond iList firstElem index =
   if index == length iList
     then 0
-  else if is2020 firstElem (iList !! index)
-      then firstElem * iList !! index
-      else iterateSecond iList firstElem (index + 1)
+  else nextSecondValue iList firstElem index
 
+nextSecondValue :: [Integer] -> Integer -> Int -> Integer
+nextSecondValue iList firstElem index
+  | result <= 0 = iterateSecond iList firstElem (index + 1)
+  | otherwise  = result
+  where result = iterateThird iList firstElem (iList !! index) index
 
-is2020 :: Integer -> Integer -> Bool
-is2020 x y = (x + y ) == 2020
+iterateThird :: [Integer] -> Integer -> Integer -> Int -> Integer
+iterateThird iList firstElem secondElem index =
+  if index == length iList
+    then 0
+  else if firstElem + secondElem + (iList !! index) == 2020
+      then firstElem * secondElem * iList !! index
+      else iterateThird iList firstElem secondElem (index + 1)
 
 main :: IO ()
 main = do
